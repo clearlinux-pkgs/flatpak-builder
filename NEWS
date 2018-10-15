@@ -1,0 +1,211 @@
+Changes in 1.0.1
+================
+
+ * Run appstream-util mirror-screenshots in the sandbox, rather than on
+   the host, as the host might not have a new enough appstream-glib.
+ * Fix build cache when a module has uncommon characters in the name.
+
+Changes in 1.0.0
+================
+
+ * Respect no-parallel-make with ninja
+ * Fixed regression in data: uris
+ * Warn about deprecated cmake property
+ * Make X-Flatpak-RenamedFrom a list
+ * Fix handling of mirror uris with no terminating slash
+ * Take arch into account for --skip-if-unchanged
+ * Fix --run when run inside a flatpak sandbox
+ * Ensure GIT commiter env var is set when applying git patches
+ * Keep x-* properties in the manifest when creating manifest.json
+ * New property `paths` in patch source to apply multiple patches.
+
+Major changes in 0.99.3
+=======================
+
+ * Add X-Flatpak-RenamedFrom key to renamed desktop files
+ * Set FLATPAK_BUILDER_BUILDDIR when building module
+ * Handle large downloads better
+ * Make p2p code non-optional
+
+Major changes in 0.99.2
+=======================
+
+ * Fix --install not working due to asking for confirmation
+ * Fix builds with latest libsoup
+ * New option git-init for archives
+ * New option use-git-am for patches
+
+Major changes in 0.99.1
+=======================
+
+In preparation for 1.0, this release depends on a recent (0.11.8) flatpak.
+
+ * New libdir build option
+ * Support loading default options from sdk
+ * Add support for overriding c/cpp/ld/etc flags in a module
+ * Now uses libcurl to download things instead of soup,
+   which means we now support ftp urls.
+ * Don't prune build caches when building with --{export,finish}-only
+ * rename-desktop-file now handles launchables in the appdata
+ * archive sources support dest-filename
+ * archive and file sources now support mirror-urls to list
+   extra urls in case of network problems.
+
+Major changes in 0.10.10
+========================
+
+ * We now support yaml manifest as well as json.
+ * New source type "svn" to download subversion checkouts.
+ * New source type "dir" for local directories.
+ * Set FLATPAK_BUILDER_N_JOBS in environment during build.
+ * If not using ccache, enfore it of. This helps builds with
+   meson as they pick up ccache by default, which makes no
+   sense when there is no persistent storage for ccache to use.
+ * New options prepend-*-path similar to the existing append-*-path
+   ones, but prepending instead.
+ * New argument --no-shallow-clone which disables any shallow clone
+   optimizations.
+ * New inherit-sdk-extensions property similar to inherit-extensions,
+   but is not inherited in the platform.
+ * We now ignore json keys starting with "//" and "__" allowing these
+   to be used for comments.
+ * Fixed a bug that caused --install to not work properly.
+ * New argument --extension-tag for using the new tagged extension feature.
+ * The build metadata now records which extensions were produced as part
+   of a build.
+ * New property add-build-extensions allows creating exension points that
+   can be used during the build.
+ * flatpak-builder --run now also binds /run/build-runtime to the builds,
+   allowing it to work when building runtimes.
+
+Major changes in 0.10.9
+=======================
+
+ * Support -y argument, which passes it on to flatpak install, etc
+ * Fix build on glibc 2.27
+
+Major changes in 0.10.8
+=======================
+
+ * Fix build on recent glibc
+
+Major changes in 0.10.7
+=======================
+
+ * Add support for --socket=fallback-x11
+ * Fix assert in --install
+ * Fix --disable-updates for git sources
+ * When mirroring git repos, use a temporary download dir
+ * Support running flatpak-builder inside a flatpak sandbox
+
+Major changes in 0.10.6
+=======================
+
+ * New checksum types for file/archive sources: md5, sha1, sha512
+ * Support including source snippets from another file, similar to
+   how module includes are supported.
+ * The app id renaming in the appdata file is now more careful to
+   avoid renaming other parts.
+ * The cache default repo format for new caches is now bare-user-only
+   which means building with flatpak-builder works on filesystems that
+   don't support xattrs.
+ * New --install argument will install the finished build using the
+   new flatpak install install-directly-from-local-repo feature.
+   This makes it easier to test local builds.
+
+Major changes in 0.10.5
+=======================
+
+ * Add support for running tests during the build (disable with --disable-tests).
+ * New build-option append-pkg-config to append to PKG_CONFIG_PATH
+ * --state-dir option lets you reuse a single directory instead of scattered
+   .flatpak-builder dirs for builds, downloads and cache data.
+ * git: Allow updates with non-fastforwarded branched
+ * Don't fail if app ships both appdata and metainfo file
+ * Support --log-system/session-bus in --run
+
+Major changes in 0.10.4
+=======================
+
+ * Fixed source bundling of git repos with older versions of git
+ * Allow git sources to use "HEAD" branch
+ * Fixed crashes in some cases of git failure
+
+Major changes in 0.10.3
+=======================
+
+ * Yet more fixed or older versions of git.  In particular, we disable
+   fsck during transfer when doing a shallow clone and the git version
+   is less than 1.8.3.2.
+
+Major changes in 0.10.2
+=======================
+
+ * Even more fixes for shallow git clones with older versions of git
+ * New property for git sources, disable-shallow-clone which falls
+   back to cloning the entire remote.
+
+Major changes in 0.10.1
+=======================
+
+ * Fix handling of shallow git clones with older versions of git
+ * Fix issue where flatpak-builder --run could exit if some
+   thread in the parent process exited, exposeb by e.g.
+   gnome-builder.
+
+Major changes in 0.10.0
+=======================
+
+ * We now do shallow clones of git repos when downloading if
+   possible.
+ * The way the cache works internally was slightly tweaked
+   which will cause all existing caches to be rebuilt.
+
+Major changes in 0.9.99
+=======================
+
+ * Fix git source bundling on older git version
+ * New property: appdata-license lets you easily modify the appstream license field
+ * New source type "extra-data" which makes it easier to use extra-data apps
+ * We now automatically compress debuginfo unless the no-debuginfo-compression
+   option is specified.
+ * Appstream files called .metainfo.xml are now recognized.
+ * New prepare-platform-commands property, similar to cleanup-platform-commands,
+   but run before importing all the changes from the SDK.
+ * We now apply all the deletions that happened in the SDK on the base when creating
+   the platform.
+
+Major changes in 0.9.98
+=======================
+
+ * build cache hits are now faster
+ * git sources have a new property "tag" which works the same as "branch", but
+   improves readability when referencing a git tag.
+ * flatpak-builder --run now passes  --with-appdir which is useful when
+   testing uninstalled builds.
+ * When bundling git repos in .Sources we now make a shallow clone which uses
+   a lot less space.
+ * .Locale extensions now always set the new locale-subset property
+ * locale-subset is supported in the add-extension property
+ * build-options now also supports make-args and make-install args, which
+   allows per-arch make flags.
+
+Major changes in 0.9.11
+======================
+
+Skipped 0.9.10 to sync with flatpakk
+
+ * Fix build on some arches due to lack of flatpak_get_kernel_arch symbol
+ * Disable ostree 3% free space check for build cache
+ * Add some new status terminal title updates
+ * Set the requested environment vars in type=shell sources commands
+ * Add append-path and append-ld-library-path build options
+ * Add buildtype=qmake
+ * Updated docs
+
+Major changes in 0.9.9
+======================
+
+flatpak-builder was split out from flatpak into its own module.
+
+ * Pass --die-with-parent to all flatpak build commands
