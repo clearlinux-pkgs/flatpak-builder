@@ -4,7 +4,7 @@
 #
 Name     : flatpak-builder
 Version  : 1.0.1
-Release  : 1
+Release  : 2
 URL      : https://github.com/flatpak/flatpak-builder/releases/download/1.0.1/flatpak-builder-1.0.1.tar.xz
 Source0  : https://github.com/flatpak/flatpak-builder/releases/download/1.0.1/flatpak-builder-1.0.1.tar.xz
 Summary  : No detailed summary available
@@ -12,6 +12,10 @@ Group    : Development/Tools
 License  : LGPL-2.1
 Requires: flatpak-builder-bin = %{version}-%{release}
 Requires: flatpak-builder-license = %{version}-%{release}
+Requires: git
+Requires: ostree
+Requires: patch
+Requires: tar
 BuildRequires : flatpak
 BuildRequires : gettext
 BuildRequires : libcap-dev
@@ -61,7 +65,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1539630776
+export SOURCE_DATE_EPOCH=1539631008
 %configure --disable-static --disable-documentation
 make  %{?_smp_mflags}
 
@@ -73,7 +77,7 @@ export no_proxy=localhost,127.0.0.1,0.0.0.0
 make VERBOSE=1 V=1 %{?_smp_mflags} check
 
 %install
-export SOURCE_DATE_EPOCH=1539630776
+export SOURCE_DATE_EPOCH=1539631008
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/flatpak-builder
 cp COPYING %{buildroot}/usr/share/package-licenses/flatpak-builder/COPYING
