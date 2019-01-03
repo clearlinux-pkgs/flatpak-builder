@@ -4,7 +4,7 @@
 #
 Name     : flatpak-builder
 Version  : 1.0.1
-Release  : 2
+Release  : 3
 URL      : https://github.com/flatpak/flatpak-builder/releases/download/1.0.1/flatpak-builder-1.0.1.tar.xz
 Source0  : https://github.com/flatpak/flatpak-builder/releases/download/1.0.1/flatpak-builder-1.0.1.tar.xz
 Summary  : No detailed summary available
